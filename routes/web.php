@@ -8,6 +8,9 @@ use App\Http\Controllers\PatientController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\WardController;
 
+use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\BillingController;
+
 /*
 |--------------------------------------------------------------------------
 | WellMeadows HMS — Web Routes
@@ -26,18 +29,13 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('patients', PatientController::class);
     Route::resource('staff', StaffController::class);
+    Route::resource('appointments', AppointmentController::class);
 
     Route::get('/wards', [WardController::class, 'index'])->name('wards.index');
     Route::get('/wards/{ward}', [WardController::class, 'show'])->name('wards.show');
     Route::get('/wards/{ward}/bed/{bed}', [WardController::class, 'showBed'])->name('wards.bed');
 
-    Route::get('/appointments', function () {
-        return view('appointments');
-    });
-
-    Route::get('/billing', function () {
-        return view('billing');
-    });
+    Route::get('/billing', [BillingController::class, 'index'])->name('billing.index');
 
     Route::get('/reports', function () {
         return view('reports');
