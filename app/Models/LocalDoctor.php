@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class LocalDoctor extends Model
+{
+    use HasFactory;
+
+    protected $table = 'local_doctor';
+    protected $primaryKey = 'clinic_number';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
+    protected $fillable = [
+        'clinic_number',
+        'full_name',
+        'address',
+        'telephone_number',
+    ];
+
+    public function patients()
+    {
+        return $this->hasMany(Patient::class, 'clinic_number', 'clinic_number');
+    }
+}
