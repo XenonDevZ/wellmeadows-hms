@@ -9,8 +9,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <!-- HTMX for Smooth SPA-like Navigation -->
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <style>
+        /* Smooth fade transition for page swaps */
+        body { transition: opacity 0.2s ease-in-out; }
+        body.htmx-swapping { opacity: 0; }
+    </style>
 </head>
-<body>
+<body hx-boost="true">
     <div class="d-flex" id="wrapper">
 
         <!-- ─── Sidebar ─────────────────────────────────────────────── -->
