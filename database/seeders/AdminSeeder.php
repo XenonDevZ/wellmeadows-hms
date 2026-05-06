@@ -18,6 +18,7 @@ class AdminSeeder extends Seeder
 
         if (!$exists) {
             DB::table('users')->insert([
+                'name' => 'Admin',
                 'staff_no' => 'S055', // Laurence (Consultant)
                 'email' => 'admin@wellmeadows.com',
                 'password' => Hash::make('password'),
