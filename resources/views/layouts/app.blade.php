@@ -51,7 +51,7 @@
 
             <!-- Sidebar Footer: Logout -->
             <div class="mt-auto p-3" style="border-top:1px solid rgba(255,255,255,0.06);">
-                <form action="{{ route('logout') }}" method="POST">
+                <form action="{{ route('logout') }}" method="POST" hx-boost="false">
                     @csrf
                     <button type="submit" class="btn w-100 d-flex align-items-center justify-content-center gap-2" style="background:rgba(239,68,68,0.1);color:#F87171;border:1px solid rgba(239,68,68,0.15);border-radius:8px;font-size:0.85rem;font-weight:500;padding:0.6rem;">
                         <i class="bi bi-box-arrow-right"></i> Logout
