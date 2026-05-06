@@ -10,12 +10,22 @@ class WellMeadowsSeeder extends Seeder
 {
     public function run(): void
     {
-        // Clean existing data to avoid duplicates if re-run
-        // We use TRUNCATE CASCADE if we are on PostgreSQL, or just let DB::table()->delete() handle it.
-        // But since we want to be safe, we just check if data exists.
+        // Clean existing fake data if it exists to avoid duplicate key errors
+        if (DB::table('staff')->where('staff_no', 'S101')->exists() || DB::table('staff')->where('staff_no', 'S055')->exists()) {
+            DB::table('in_patient')->delete();
+            DB::table('patient_appointment')->delete();
+            DB::table('patient')->delete();
+            DB::table('local_doctor')->delete();
+            DB::table('bed')->delete();
+            DB::table('ward')->delete();
+            DB::table('staff')->delete();
+            DB::table('staff_category')->delete();
+            DB::table('item')->delete();
+            DB::table('medication')->delete();
+        }
+
         if (DB::table('staff')->where('staff_no', 'S011')->exists()) {
-            // Already seeded case study data
-            return;
+            return; // Already seeded authentic data
         }
 
         $now = Carbon::now();
