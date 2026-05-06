@@ -10,21 +10,29 @@ class Item extends Model
     use HasFactory;
 
     protected $table = 'item';
-    protected $primaryKey = 'item_number';
+    protected $primaryKey = 'item_no';
     public $incrementing = false;
     protected $keyType = 'string';
+    public $timestamps = false;
 
     protected $fillable = [
-        'item_number',
-        'item_name',
+        'item_no',
+        'name',
         'description',
         'quantity_in_stock',
         'reorder_level',
         'cost_per_unit',
+        'supplier_no',
     ];
 
     public function suppliers()
     {
-        return $this->belongsToMany(Supplier::class, 'supplier_item', 'item_number', 'supplier_number');
+        return $this->belongsTo(Supplier::class, 'supplier_no', 'supplier_no');
+    }
+
+    public function requisitions()
+    {
+        return $this->belongsToMany(WardRequisition::class, 'requisition_item', 'item_no', 'requisition_no')
+                    ->withPivot('quantity_required');
     }
 }

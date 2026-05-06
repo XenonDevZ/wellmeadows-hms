@@ -11,6 +11,8 @@ class WardRequisition extends Model
 
     protected $table = 'ward_requisition';
     protected $primaryKey = 'requisition_no';
+    public $incrementing = true;
+    protected $keyType = 'int';
     public $timestamps = false;
 
     protected $fillable = [

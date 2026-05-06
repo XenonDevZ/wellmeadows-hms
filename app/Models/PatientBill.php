@@ -11,10 +11,11 @@ class PatientBill extends Model
 
     protected $table = 'patient_bill';
     protected $primaryKey = 'bill_no';
+    public $incrementing = true;
+    protected $keyType = 'int';
     public $timestamps = false;
 
     protected $fillable = [
-        'bill_no',
         'patient_no',
         'total_amount',
         'bill_date',

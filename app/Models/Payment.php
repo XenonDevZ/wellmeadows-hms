@@ -11,10 +11,11 @@ class Payment extends Model
 
     protected $table = 'payment';
     protected $primaryKey = 'payment_no';
+    public $incrementing = true;
+    protected $keyType = 'int';
     public $timestamps = false;
 
     protected $fillable = [
-        'payment_no',
         'bill_no',
         'amount',
         'payment_date',

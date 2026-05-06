@@ -36,6 +36,11 @@ class Ward extends Model
         return $this->hasMany(Bed::class, 'ward_no', 'ward_no');
     }
 
+    public function inPatients()
+    {
+        return $this->hasMany(InPatient::class, 'ward_no', 'ward_no');
+    }
+
     public function getAvailableBedsCountAttribute()
     {
         return $this->beds()->where('status', 'Available')->count();
