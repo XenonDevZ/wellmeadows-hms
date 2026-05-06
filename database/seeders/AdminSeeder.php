@@ -26,5 +26,9 @@ class AdminSeeder extends Seeder
                 'updated_at' => now(),
             ]);
         }
+
+        $this->call([
+            WellMeadowsSeeder::class,
+        ]);
     }
 }
