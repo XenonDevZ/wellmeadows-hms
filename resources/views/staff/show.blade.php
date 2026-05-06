@@ -56,7 +56,7 @@
                     </div>
                     <div class="col-md-4">
                         <p class="small text-muted mb-1">Current Salary</p>
-                        <p class="fw-medium mb-0">£{{ number_format($staff->current_salary, 2) }} / yr</p>
+                        <p class="fw-medium mb-0">£{{ number_format((float) $staff->current_salary, 2) }} / yr</p>
                     </div>
                     <div class="col-md-4">
                         <p class="small text-muted mb-1">Joined System</p>

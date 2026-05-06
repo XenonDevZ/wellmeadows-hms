@@ -60,7 +60,7 @@
                                 @endif
                             </td>
                             <td style="font-size:0.85rem;">{{ $staff->telephone_number }}</td>
-                            <td class="fw-medium" style="font-size:0.85rem;">£{{ number_format($staff->current_salary, 2) }}</td>
+                            <td class="fw-medium" style="font-size:0.85rem;">£{{ number_format((float) $staff->current_salary, 2) }}</td>
                             <td class="text-center">
                                 <a href="{{ route('staff.show', $staff->staff_no) }}" class="btn btn-sm btn-light text-primary me-1" title="View"><i class="bi bi-eye"></i></a>
                                 <a href="{{ route('staff.edit', $staff->staff_no) }}" class="btn btn-sm btn-light text-warning me-1" title="Edit"><i class="bi bi-pencil"></i></a>

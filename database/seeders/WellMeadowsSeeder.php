@@ -281,7 +281,21 @@ class WellMeadowsSeeder extends Seeder
         ]);
 
         // 7. Patient Appointments
-        // No explicit appointment data in case study figures besides descriptions. We'll skip for now.
+        // Add a dummy appointment to restore the Appointments dashboard feature
+        DB::table('patient_appointment')->insert([
+            [
+                'appointment_no' => 'A1001',
+                'patient_no' => 'P10234', // Anne Phelps
+                'staff_no' => 'S344', // Laurence Burns
+                'clinic_number' => 'C001',
+                'date_of_appointment' => $now->addDays(2)->toDateString(),
+                'time_of_appointment' => '10:00:00',
+                'examination_room' => 'Room E252',
+                'status' => 'Scheduled',
+                'created_at' => $now,
+                'updated_at' => $now
+            ]
+        ]);
 
         // 8. InPatients
         DB::table('in_patient')->insert([
@@ -291,9 +305,9 @@ class WellMeadowsSeeder extends Seeder
                 'bed_no' => '84',
                 'date_placed_on_waiting_list' => '1996-01-12',
                 'expected_duration_of_stay' => '5',
-                'date_placed_in_ward' => '1996-01-12',
-                'date_expected_to_leave' => '1996-01-17',
-                'actual_date_left' => '1996-01-27',
+                'date_placed_in_ward' => $now->subHours(2)->toDateString(), // Use recent time so it shows on Dashboard
+                'date_expected_to_leave' => $now->addDays(5)->toDateString(),
+                'actual_date_left' => null,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -335,10 +349,16 @@ class WellMeadowsSeeder extends Seeder
             ]
         ]);
 
-        // 9. Items / Drugs
+        // 9. Suppliers
+        // Add a dummy supplier for items
+        DB::table('supplier')->insert([
+            ['supplier_no' => 'SUP01', 'name' => 'WellMeadows Central Supply', 'address' => 'Hospital Ground', 'telephone_number' => '555-0000', 'fax_number' => '555-0001', 'created_at' => $now, 'updated_at' => $now],
+        ]);
+
+        // 10. Items / Drugs
         DB::table('item')->insert([
-            ['item_no' => '10223', 'name' => 'Morphine', 'description' => 'Pain killer', 'quantity_in_stock' => 100, 'reorder_level' => 20, 'cost_per_unit' => 27.75, 'supplier_no' => null, 'created_at' => $now, 'updated_at' => $now],
-            ['item_no' => '10334', 'name' => 'Tetracycline', 'description' => 'Antibiotic', 'quantity_in_stock' => 200, 'reorder_level' => 50, 'cost_per_unit' => 15.00, 'supplier_no' => null, 'created_at' => $now, 'updated_at' => $now],
+            ['item_no' => '10223', 'name' => 'Morphine', 'description' => 'Pain killer', 'quantity_in_stock' => 10, 'reorder_level' => 20, 'cost_per_unit' => 27.75, 'supplier_no' => 'SUP01', 'created_at' => $now, 'updated_at' => $now], // Low stock!
+            ['item_no' => '10334', 'name' => 'Tetracycline', 'description' => 'Antibiotic', 'quantity_in_stock' => 200, 'reorder_level' => 50, 'cost_per_unit' => 15.00, 'supplier_no' => 'SUP01', 'created_at' => $now, 'updated_at' => $now],
         ]);
 
         // Drugs are also treated as medication
