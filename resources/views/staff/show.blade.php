@@ -15,14 +15,14 @@
         <div class="card border-0 rounded-4 shadow-sm text-center p-4 h-100">
             @php
                 $colors = ['6366F1', '10B981', 'F59E0B', 'EC4899', '8B5CF6'];
-                $color = $colors[crc32($staff->position_category_id) % count($colors)];
+                $color = $colors[crc32($staff->position_category_id ?? '') % count($colors)];
             @endphp
             <img src="https://ui-avatars.com/api/?name={{ urlencode($staff->first_name . ' ' . $staff->last_name) }}&background={{ $color }}&color=fff&size=100" class="rounded-circle mx-auto mb-3" width="100" height="100">
             <h4 class="fw-bold mb-1">{{ $staff->first_name }} {{ $staff->last_name }}</h4>
             <p class="text-muted mb-3">{{ $staff->staff_no }}</p>
             
             <span class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill px-3 py-2 w-100 mb-4">
-                <i class="bi bi-briefcase me-1"></i> {{ $staff->category->title ?? 'Uncategorized' }}
+                <i class="bi bi-briefcase me-1"></i> {{ $staff->category?->title ?? 'Uncategorized' }}
             </span>
 
             <div class="text-start mt-2">

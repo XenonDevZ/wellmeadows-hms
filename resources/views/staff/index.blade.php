@@ -41,7 +41,7 @@
                                     @php
                                         // Generate color based on category for variety
                                         $colors = ['6366F1', '10B981', 'F59E0B', 'EC4899', '8B5CF6'];
-                                        $color = $colors[crc32($staff->position_category_id) % count($colors)];
+                                        $color = $colors[crc32($staff->position_category_id ?? '') % count($colors)];
                                     @endphp
                                     <img src="https://ui-avatars.com/api/?name={{ urlencode($staff->first_name . ' ' . $staff->last_name) }}&background={{ $color }}&color=fff&size=32" class="rounded-circle" width="32" height="32">
                                     <div>
@@ -51,12 +51,12 @@
                                 </div>
                             </td>
                             <td>
-                                @if(str_contains($staff->category->title ?? '', 'Director'))
-                                    <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3">{{ $staff->category->title ?? 'Unknown' }}</span>
-                                @elseif(str_contains($staff->category->title ?? '', 'Nurse'))
-                                    <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3">{{ $staff->category->title ?? 'Unknown' }}</span>
+                                @if(str_contains($staff->category?->title ?? '', 'Director'))
+                                    <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3">{{ $staff->category?->title ?? 'Unknown' }}</span>
+                                @elseif(str_contains($staff->category?->title ?? '', 'Nurse'))
+                                    <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3">{{ $staff->category?->title ?? 'Unknown' }}</span>
                                 @else
-                                    <span class="badge bg-warning bg-opacity-10 text-warning rounded-pill px-3">{{ $staff->category->title ?? 'Unknown' }}</span>
+                                    <span class="badge bg-warning bg-opacity-10 text-warning rounded-pill px-3">{{ $staff->category?->title ?? 'Unknown' }}</span>
                                 @endif
                             </td>
                             <td style="font-size:0.85rem;">{{ $staff->telephone_number }}</td>

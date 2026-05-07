@@ -78,7 +78,7 @@
                                 $fullName = $staff ? $staff->first_name . ' ' . $staff->last_name : 'Admin User';
                                 $position = $staff && $staff->category ? $staff->category->title : 'Administrator';
                                 $colors = ['6366F1', '10B981', 'F59E0B', 'EC4899', '8B5CF6'];
-                                $color = $staff ? $colors[crc32($staff->position_category_id) % count($colors)] : '6366F1';
+                                $color = $staff ? $colors[crc32($staff->position_category_id ?? '') % count($colors)] : '6366F1';
                             @endphp
                             <img src="https://ui-avatars.com/api/?name={{ urlencode($fullName) }}&background={{ $color }}&color=fff&size=32"
                                  class="rounded-circle" width="32" height="32" alt="Avatar">
