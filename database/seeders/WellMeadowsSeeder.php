@@ -10,8 +10,13 @@ class WellMeadowsSeeder extends Seeder
 {
     public function run(): void
     {
+        // Crash recovery: If supplier SUP01 exists but staff S011 is missing, it means a previous seed crashed halfway.
+        if (DB::table('supplier')->where('supplier_no', 'SUP01')->exists() && !DB::table('staff')->where('staff_no', 'S011')->exists()) {
+            DB::table('supplier')->where('supplier_no', 'SUP01')->delete();
+        }
+
         // Clean existing fake data if it exists to avoid duplicate key errors
-        if (DB::table('staff')->where('staff_no', 'S101')->exists() || DB::table('staff')->where('staff_no', 'S055')->exists()) {
+        if (DB::table('staff')->where('staff_no', 'S101')->exists()) {
             DB::table('in_patient')->delete();
             DB::table('patient_appointment')->delete();
             DB::table('patient')->delete();
@@ -22,6 +27,7 @@ class WellMeadowsSeeder extends Seeder
             DB::table('staff_category')->delete();
             DB::table('item')->delete();
             DB::table('medication')->delete();
+            DB::table('supplier')->delete();
         }
 
         if (DB::table('staff')->where('staff_no', 'S011')->exists()) {
